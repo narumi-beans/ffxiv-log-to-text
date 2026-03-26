@@ -1,5 +1,4 @@
 # ffxiv-log-to-text
----
 
 This repository contains parsers (Python and PHP versions) that analyze Final Fantasy XIV (FFXIV) log files and convert chat and battle records into a human-readable format.
 
