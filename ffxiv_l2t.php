@@ -241,7 +241,9 @@ class FFXIVLogParser
             $c = ord($payload[$i]);
 
             if ($c === 0x02) {
+                $chunks[] = substr($payload, $chunkStart, $i - $chunkStart);
                 $i = $this->tagEnd($payload, $i);
+                $chunkStart = $i;
                 continue;
             }
 

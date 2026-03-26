@@ -208,10 +208,6 @@ class FFXIVLogParser:
         return end + 1 if end != -1 else length
 
     def _extract_fields(self, payload: bytes) -> list:
-        """
-        Extract text fields from the payload by splitting on field separators and decoding.
-        Returns a list of decoded strings.
-        """
         chunks = []
         chunk_start = 0
         i = 0
@@ -219,12 +215,17 @@ class FFXIVLogParser:
 
         while i < length:
             c = payload[i]
+
             if c == 0x02:
+                chunks.append(payload[chunk_start:i])
                 i = self._tag_end(payload, i)
+                chunk_start = i
                 continue
+
             if c == 0x1F:
                 chunks.append(payload[chunk_start:i])
                 chunk_start = i + 1
+
             i += 1
 
         if chunk_start < length:
